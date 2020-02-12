@@ -1,0 +1,9 @@
+Name,Damage,Type,Speed
+Sword,10,slashing,10
+Knife,5,slashing,25
+Katana,20,slashing,20
+Pole Arm,15,cleave,5
+Halberd,20,cleave,5
+glaive,15,slashing,15
+Axe,17,Cleave,7
+Saber,13,slashing,8
