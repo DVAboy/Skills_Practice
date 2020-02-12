@@ -15,7 +15,7 @@ public class ListMenu {
 
     private ArrayList<String[]> stats = new ArrayList<>();
 
-    // private ObservableList<String> weapons;
+    private ObservableList<String> weapons;
 
     private ListView listView = new ListView();
     private TextField tfield1 = new TextField();
@@ -65,7 +65,7 @@ public class ListMenu {
         stats = fileR.getStats();
 
         //adds all the weapons
-        ObservableList<String> weapons = FXCollections.observableArrayList(fileR.readFile());
+        weapons = FXCollections.observableArrayList(fileR.readFile());
         listView.setItems(weapons);
     }
 
@@ -85,44 +85,36 @@ public class ListMenu {
 
         //Button Actions
         bAdd.setOnMouseClicked(e -> {
-            addWeapon(tfield1.getText(), tfield2.getText(), tfield3.getText(), tfield4.getText());
+            //adds new weapon to temp
+            String[] temp = new String[4];
+            temp[0] = tfield1.getText();
+            temp[1] = tfield2.getText();
+            temp[2] = tfield3.getText();
+            temp[3] = tfield4.getText();
+            stats.add(temp);
+
+            //adds new weapon to list view
+            weapons.add(tfield1.getText());
+
+            //adds new weapon to file
+            //fileR.addWeapon(stats);
         });
 
         bDelete.setOnMouseClicked(e -> {
-            deleteweapon();
+            //removes weapon from list view and stats
+            weapons.remove(listView.getSelectionModel().getSelectedIndex());
+            stats.remove(listView.getSelectionModel().getSelectedIndex());
         });
 
         bClear.setOnMouseClicked(e -> {
-            clearTFields();
+            tfield1.clear();
+            tfield2.clear();
+            tfield3.clear();
+            tfield4.clear();
         });
 
         bSave.setOnMouseClicked(e -> {
-            saveList();
+            //fileR.addWeapon(stats);
         });
     }
-
-    private void addWeapon(String name, String damage, String type, String speed) {
-
-        //adds new weapon to list view
-        //weapons.add(name);
-
-        //adds new weapon to file
-        fileR.addWeapon(stats);
-    }
-
-    private void clearTFields() {
-        tfield1.clear();
-        tfield2.clear();
-        tfield3.clear();
-        tfield4.clear();
-    }
-
-    private void deleteweapon() {
-        stats.remove(listView.getSelectionModel().getSelectedIndex());
-    }
-
-    private void saveList() {
-        fileR.addWeapon(stats);
-    }
-
 }
